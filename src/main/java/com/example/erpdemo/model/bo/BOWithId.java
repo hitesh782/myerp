@@ -17,10 +17,12 @@ public class BOWithId {
 	private String id;
 	
 	@CreatedDate
-	@Field("created_Date")
 	private Date createdDate;
 	
 	@LastModifiedDate
-	@Field("updated_Date")
 	private Date updatedDate;
+	
+	private boolean active = true;
+	
+	private boolean deleted = false;
 }
