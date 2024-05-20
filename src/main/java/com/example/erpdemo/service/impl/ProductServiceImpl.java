@@ -41,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
 			log.info("product name is getting null");
 			throw new ProductValidationException("product name is null");
 		}
+			
 		return this.productRepo.save(product);
 	}
 
@@ -77,17 +78,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void deleteProduct(String productId) throws ProductException {
-		Optional<Product> productOptional = this.productRepo.findById(productId);
-
-		if(productOptional.isPresent()) {
-			Product product = productOptional.get();
+		Product product = this.productRepo.findByIdAndDeleted(productId, false);
+		if(product!=null) {
 			product.setDeleted(true);
 			this.productRepo.save(product);
 		}
 		else {
 			log.info(LF.format("product with id: {} is not present",productId));
-//			log.info("product with given productId is not found");
-			throw new ProductNotFoundException("product with given id is not found");
+			throw new ProductNotFoundException("product with given is not found");
 		}
 	}
 

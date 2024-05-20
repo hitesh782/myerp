@@ -9,7 +9,9 @@ public enum MatchMode {
 	
 	GT("gt"),
 	
-	LT("lt");
+	LT("lt"),
+	
+	IS("is");
 	
 	private final String value;
 	

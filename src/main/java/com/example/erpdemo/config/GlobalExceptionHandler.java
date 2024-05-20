@@ -2,6 +2,7 @@ package com.example.erpdemo.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.example.erpdemo.Exception.MpsBooksErrorResponse;
@@ -10,7 +11,7 @@ import com.example.erpdemo.Exception.ProductNotFoundException;
 import com.example.erpdemo.Exception.ProductValidationException;
 
 
-
+@ControllerAdvice
 public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(ProductException.class)

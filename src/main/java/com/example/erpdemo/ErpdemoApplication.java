@@ -4,10 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.example.erpdemo.config.CustomCorsFilter;
 
 @SpringBootApplication
+@EnableMongoAuditing
+@EnableScheduling
 public class ErpdemoApplication {
 
 	public static void main(String[] args) {
