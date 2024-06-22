@@ -4,6 +4,13 @@ spring:
       host: localhost
       port: 27017
       database: erpbooks1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://mps-dev.auth0.com/
+          audience: mps-dev-api
+        
 
 server:
   port: 9010
@@ -12,3 +19,7 @@ server:
     
 cron:
   expression: 0/30 * * * * *
+
+  
+#issuer-uri: https://dev-raff3lhzvccgz05a.us.auth0.com/
+# audience: https://user-api

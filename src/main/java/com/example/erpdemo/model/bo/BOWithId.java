@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,14 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BOWithId {
 	private String id;
-	
+
 	@CreatedDate
 	private Date createdDate;
-	
+
 	@LastModifiedDate
 	private Date updatedDate;
-	
+
 	private boolean active = true;
-	
+
 	private boolean deleted = false;
 }

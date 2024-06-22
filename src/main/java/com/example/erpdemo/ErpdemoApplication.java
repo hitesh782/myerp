@@ -12,19 +12,20 @@ import com.example.erpdemo.config.CustomCorsFilter;
 @SpringBootApplication
 @EnableMongoAuditing
 @EnableScheduling
+//@EnableMethodSecurity
 public class ErpdemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ErpdemoApplication.class, args);
 	}
-	
+
 	@Bean
 	public FilterRegistrationBean<CustomCorsFilter> corsFilterRegistrationBean() {
-	    FilterRegistrationBean<CustomCorsFilter> registrationBean = new FilterRegistrationBean<>();
-	    registrationBean.setFilter(new CustomCorsFilter());
-	    registrationBean.addUrlPatterns("/*"); // Apply filter to all URL patterns
-	    registrationBean.setOrder(0); // Set precedence of the filter
-	    return registrationBean;
+		FilterRegistrationBean<CustomCorsFilter> registrationBean = new FilterRegistrationBean<>();
+		registrationBean.setFilter(new CustomCorsFilter());
+		registrationBean.addUrlPatterns("/*"); // Apply filter to all URL patterns
+		registrationBean.setOrder(0); // Set precedence of the filter
+		return registrationBean;
 	}
 
 }
