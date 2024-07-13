@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.erpdemo.Exception.BookException;
 import com.example.erpdemo.Exception.BookNotFoundException;
@@ -127,6 +128,7 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(EmployeeValidationException.class)
+	@ResponseStatus(HttpStatus.PRECONDITION_FAILED)
 	public ResponseEntity<MpsBooksErrorResponse> handleEmployeeValidationException(
 			final EmployeeValidationException ex) {
 		return new ResponseEntity<>(
@@ -135,6 +137,7 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(EmployeeNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ResponseEntity<MpsBooksErrorResponse> handleEmployeeNotFoundException(final EmployeeNotFoundException ex) {
 		return new ResponseEntity<>(
 				new MpsBooksErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()),

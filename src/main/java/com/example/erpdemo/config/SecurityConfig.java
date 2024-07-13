@@ -25,10 +25,19 @@ public class SecurityConfig {
 //		return http.build();
 //	}
 
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/public/**").permitAll()
+//				.requestMatchers("/tenantPool/**").hasAuthority("SCOPE_mps:admin")
+//				.anyRequest().authenticated())
+//				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+//		return http.build();
+//	}
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/public/**").permitAll()
-				.requestMatchers("/tenantPool/**").hasAuthority("SCOPE_mps:admin").anyRequest().authenticated())
+				.requestMatchers("/tenantPool/**").permitAll().anyRequest().permitAll())
 				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 		return http.build();
 	}

@@ -17,14 +17,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.javers.core.Javers;
+import org.javers.core.diff.Diff;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.erpdemo.Exception.MpsManagerException;
+import com.example.erpdemo.config.TenantContext;
+import com.example.erpdemo.config.TenantPoolCreationEvent;
+import com.example.erpdemo.config.Todo;
 import com.example.erpdemo.model.FileDetail;
 import com.example.erpdemo.model.MyData;
 import com.example.erpdemo.model.TenantPool;
@@ -49,6 +57,15 @@ public class TenantPoolServiceImpl implements TenantPoolService {
 	@Autowired
 	private JavaMailSender emailSender;
 
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private Javers javers;
+
 	@Override
 	public List<TenantPool> getAllTenantPool() {
 
@@ -62,7 +79,11 @@ public class TenantPoolServiceImpl implements TenantPoolService {
 		template = template.replace("${firstName}", "hitesh");
 		template = template.replace("${lastName}", "parmar");
 
-		sendMail(recipient, subject, template);
+		String tenantId = TenantContext.getId();
+
+		log.info("current Tenant Id is: {}", tenantId);
+
+		// sendMail(recipient, subject, template);
 
 		return tenantPoolRepo.findAll();
 	}
@@ -82,7 +103,18 @@ public class TenantPoolServiceImpl implements TenantPoolService {
 	public TenantPool createTenantPool(TenantPool tenantPool) throws MpsManagerException {
 		validateTenantPool(tenantPool);
 
-		return tenantPoolRepo.save(tenantPool);
+		TenantPool savedTenantPool = tenantPoolRepo.save(tenantPool);
+
+		log.debug("debug log level");
+		log.info("info log level");
+		log.warn("warn log level");
+		log.error("error log level");
+
+		eventPublisher.publishEvent(new TenantPoolCreationEvent(savedTenantPool.getId()));
+
+		return savedTenantPool;
+
+		// return tenantPoolRepo.save(tenantPool);
 	}
 
 	void validateTenantPool(TenantPool tenantPool) throws MpsManagerException {
@@ -340,5 +372,42 @@ public class TenantPoolServiceImpl implements TenantPoolService {
 			e.printStackTrace();
 		}
 		System.out.println("End async method: " + Thread.currentThread().getName());
+	}
+
+	@Override
+	public Todo[] getAllTodosRestTemplate() {
+
+		// get for object
+		// Todo[] todos =
+		// restTemplate.getForObject("https://jsonplaceholder.typicode.com/todos",
+		// Todo[].class);
+		// return todos;
+
+		// get for entity
+		ResponseEntity<Todo[]> todoList = restTemplate.getForEntity("https://jsonplaceholder.typicode.com/todos",
+				Todo[].class);
+		System.out.println(todoList.getStatusCode());
+		Todo[] todos = todoList.getBody();
+		return todos;
+
+	}
+
+	@Override
+	public Todo getTodoById(String todoId) {
+		Todo todo = restTemplate.getForObject("https://jsonplaceholder.typicode.com/todos/" + todoId, Todo.class);
+		return todo;
+	}
+
+	@Override
+	public void TestJavers() {
+		Todo todo1 = new Todo("12", "23", "hello", false);
+		Todo todo2 = new Todo("12", "57", "hello", true);
+
+//		Javers javers = JaversBuilder.javers().build();
+
+		Diff diff = javers.compare(todo1, todo2);
+
+		log.info(diff.prettyPrint());
+//		log.info("changes are " + diff.getChanges());
 	}
 }

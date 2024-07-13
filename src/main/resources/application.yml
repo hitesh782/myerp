@@ -20,6 +20,17 @@ server:
 cron:
   expression: 0/30 * * * * *
 
+logging:
+  level:
+    root: INFO
+    com:
+      example:
+        erpdemo: DEBUG
+  file:
+    name: logs/app.log
+    max-history: 30
+    max-size: 10MB
+
   
 #issuer-uri: https://dev-raff3lhzvccgz05a.us.auth0.com/
 # audience: https://user-api

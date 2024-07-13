@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.erpdemo.Exception.MpsManagerException;
+import com.example.erpdemo.config.Todo;
 import com.example.erpdemo.model.FileDetail;
 import com.example.erpdemo.model.MyData;
 import com.example.erpdemo.model.TenantPool;
@@ -30,5 +31,11 @@ public interface TenantPoolService {
 	String convertToCsv(List<MyData> myData) throws Exception;
 
 	void asyncMethod();
+
+	Todo[] getAllTodosRestTemplate();
+
+	Todo getTodoById(String todoId);
+
+	void TestJavers();
 
 }
