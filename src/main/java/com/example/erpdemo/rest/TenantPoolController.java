@@ -52,15 +52,15 @@ public class TenantPoolController {
 	public List<TenantPool> getAllTenantPool() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-		Jwt jwt = (Jwt) authentication.getPrincipal();
+		// Jwt jwt = (Jwt) authentication.getPrincipal();
 
 		// Retrieve email claim from JWT token
-		String email = jwt.getClaim("https://medpharmservices.com/email");
+		// String email = jwt.getClaim("https://medpharmservices.com/email");
 
 		log.info("authentication is: " + authentication);
 		log.info("authentication is: " + authentication.getPrincipal() + " " + authentication.getName() + " "
 				+ authentication.getAuthorities() + " " + authentication.getDetails());
-		log.info("email is: " + email);
+		// log.info("email is: " + email);
 		return tenantPoolService.getAllTenantPool();
 	}
 

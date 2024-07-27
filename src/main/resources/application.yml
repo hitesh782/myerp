@@ -8,8 +8,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://mps-dev.auth0.com/
-          audience: mps-dev-api
+          issuer-uri: https://dev-raff3lhzvccgz05a.us.auth0.com/
+          audience: https://user-api
         
 
 server:
@@ -34,3 +34,7 @@ logging:
   
 #issuer-uri: https://dev-raff3lhzvccgz05a.us.auth0.com/
 # audience: https://user-api
+
+
+# issuer-uri: https://mps-dev.auth0.com/
+#           audience: mps-dev-api
