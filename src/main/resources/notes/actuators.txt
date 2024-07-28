@@ -1,0 +1,26 @@
+-> add a dependency
+   spring-boot-starter-actuator
+
+
+-> for enabling all actuator add
+ 
+    management.endpoints.web.exposure.include=*
+
+
+-> endpoints are:
+
+   actuator/health    -> health up/down
+   actuator/info  
+   actuator/metrics
+   actuator/beans
+   actuator/conditions
+   actuator/configpropes
+   actuator/env
+   actuator/logfile
+   actuator/scheduledtasks
+
+
+
+-> swagger ui (open api documentation)
+
+ path: localhost:9010/erp/swagger-ui/index.html

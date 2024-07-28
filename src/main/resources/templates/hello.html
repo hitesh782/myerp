@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Hello</title>
+</head>
+
+<body>
+    <h1 th:text="'Hii, Good Morning ' + ${name} + '!'"></h1>
+    <p th:if="${user != null}">Welcome, <span th:text="${user}">User</span>!</p>
+    <p th:unless="${user != null}">Please sign in.</p>
+
+    <ul>
+        <li th:each="item : ${items}" th:text="${item}">Item</li>
+    </ul>
+
+</body>
+
+</html>
